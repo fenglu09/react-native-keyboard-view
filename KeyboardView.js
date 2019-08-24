@@ -10,16 +10,24 @@ const isAndroid = Platform.OS === 'android';
 const styles = StyleSheet.create({
     offSteam: {
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
         height: 0,
+        width: 0,
+        overflow: 'hidden'
+    },
+
+    androidOffSteam: {
+        height: 0,
+        width: 0,
         overflow: 'hidden',
-        opacity: isIOS ? 0 : 1
+        // flex: 1,
     },
 
     cover: {
         flex: 1
+    },
+
+    hide: {
+        opacity: 0
     },
 
     androidInputAvoid: isAndroid ? {
@@ -66,10 +74,12 @@ export default class extends Component {
         if (!visible) {
             return null;
         }
+        const { keyboardHeight } = this.props;
+        const hide = (isIOS && !visible) ? styles.hide : null;
 
         return (
           <KeyboardContentView
-            style={styles.offSteam}
+            style={[ isAndroid && styles.androidOffSteam , isAndroid && {  height: keyboardHeight }, isIOS && styles.offSteam, hide]}
             pointerEvents="box-none"
             key="contentView"
           >
@@ -78,14 +88,20 @@ export default class extends Component {
         );
     }
 
-    _getCoverView(cover, stickyView, visible) {
+    _getCoverView(cover, stickyView, visible, hasContent) {
         if (!visible) {
             return null;
         }
+        let obj = {};
+        if(!hasContent && isAndroid){
+            const { keyboardHeight } = this.props;
+            obj.top = keyboardHeight;
+        } 
+        const hide = (isIOS && !visible) ? styles.hide : null;
 
         return (
           <KeyboardCoverView
-            style={styles.offSteam}
+            style={[isAndroid && styles.androidOffSteam, isAndroid && obj ,isIOS && styles.offSteam, hide]}
             pointerEvents="box-none"
             key="coverView"
           >
@@ -126,14 +142,14 @@ export default class extends Component {
 
         const childViews = [
             this._getContentView(children, hasContent, hasContent),
-            this._getCoverView(cover, stickyView, hasCover)
+            this._getCoverView(cover, stickyView, hasCover, hasContent)
         ];
 
         if (isIOS) {
             return (
               <Modal style={styles.offSteam} visible={true}>
                   <KeyboardView
-                    style={[styles.offSteam, transform && { transform }]}
+                    style={[styles.offSteam, styles.hide, transform && { transform }]}
                     synchronouslyUpdateTransform={!!transform}
                     {...props}
                   >
@@ -144,7 +160,8 @@ export default class extends Component {
         } else {
             return (
               <KeyboardView
-                style={[styles.offSteam]}
+                synchronouslyUpdateTransform={!!transform}
+                style={[styles.androidOffSteam, styles.hide]}
                 {...props}
               >
                   {childViews}
