@@ -303,13 +303,13 @@ public class KeyboardView extends ReactRootAwareViewGroup implements LifecycleEv
         } else if (mContentView != null) {
             if (mPopupWindow == null) {
                 mPopupWindow = new PopupWindow(mContentView, keyboardFrame.width(), keyboardFrame.height());
-                mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 mPopupWindow.setAnimationStyle(R.style.DialogAnimationSlide);
                 mPopupWindow.setClippingEnabled(false);
 
                 mPopupWindow.showAtLocation(getRootView(), Gravity.NO_GRAVITY, 0, keyboardFrame.top);
             } else {
-                mPopupWindow.update(0, keyboardFrame.top, keyboardFrame.width(), keyboardFrame.height());
+                mPopupWindow.update(0, keyboardFrame.top, keyboardFrame.width(), keyboardFrame.height()+100);
             }
 
             ((ReactContext) getContext()).runOnNativeModulesQueueThread(
