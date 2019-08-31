@@ -357,7 +357,7 @@ public class KeyboardView extends ReactRootAwareViewGroup implements LifecycleEv
 
         final ReactContext context = (ReactContext)getContext();
         final int coverViewWidth = keyboardFrame.width();
-        final int coverViewHeight = rootHeight - keyboardFrame.height();
+        final int coverViewHeight = rootHeight ;
 
         context.runOnNativeModulesQueueThread(
                 new Runnable() {
