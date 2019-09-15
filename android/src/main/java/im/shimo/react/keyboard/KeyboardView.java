@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import android.view.Gravity;
 import android.view.View;
@@ -47,7 +47,8 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 
 public class KeyboardView extends ReactRootAwareViewGroup implements LifecycleEventListener {
-    private @Nullable PopupWindow mPopupWindow;
+    private @Nullable
+    PopupWindow mPopupWindow;
     private @Nullable KeyboardState mKeyboardState;
     private @Nullable View mContentView;
     private @Nullable View mCoverView;
