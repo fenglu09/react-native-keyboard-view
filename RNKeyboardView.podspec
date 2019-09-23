@@ -1,19 +1,16 @@
 require 'json'
-version = JSON.parse(File.read('package.json'))["version"]
+package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
 Pod::Spec.new do |s|
   s.name             = 'RNKeyboardView'
-  s.version          = version
-  s.summary          = 'react-native-keyboard-view'
+  s.version      = package['version']
+  s.summary      = package['description']
+  s.license      = package['license']
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+  s.authors      = package['author']
+  s.homepage     = package['homepage']
 
-  s.homepage         = 'https://github.com/shimohq/react-native-keyboard-view'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'zhongjiaren' => 'zhongjiaren@shimo.im' }
-  s.source           = { :git => 'https://github.com/shimohq/react-native-keyboard-view.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/fenglu09/react-native-keyboard-view.git', :tag => s.version  }
 
   s.ios.deployment_target = '8.0'
   
