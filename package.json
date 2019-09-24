@@ -4,7 +4,7 @@
     "description": "Keyboard view for react-native",
     "repository": {
         "type": "git",
-        "url": "https://github.com/shimohq/react-native-keyboard-view"
+        "url": "https://github.com/fenglu09/react-native-keyboard-view"
     },
     "main": "KeyboardView.js",
     "license": "MIT",
